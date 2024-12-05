@@ -45,45 +45,98 @@
 
 // 3. Реализовать простой калькулятор
 
-import java.util.Scanner;
+// import java.util.Scanner;
+
+// public class Java_HW1 {
+//     public static void main(String[] args) {
+//         System.out.println("Calculator ready enter expression:\n enter 'exit' for leave");
+//         Scanner sc = new Scanner(System.in);
+//         int a = 0;
+//         int b = 0;
+//         String op = "";
+//         do {
+//             String input = sc.next();
+//             if (input.equals("exit")) {
+//                 break;
+//             }
+//             String[] strings = input.split("\\W");
+//             String[] operator = input.split("\\w");
+//             try {
+//                 a = Integer.parseInt(strings[0]);
+//                 b = Integer.parseInt(strings[1]);
+//                 op = operator[operator.length - 1];
+//                 System.out.println("Result = " + operation(a, b, op));
+//             } catch (Exception e) {
+//                 System.out.println("Error input try again");
+//             }
+//         } while (true);
+//     }
+
+//     private static int operation(int a, int b, String op) {
+//         switch (op) {
+//             case "*":
+//                 return a * b;
+//             case "+":
+//                 return a + b;
+//             case "-":
+//                 return a - b;
+//             case "/":
+//                 return a / b;
+//             default:
+//                 return 0;
+//         }
+//     }
+// }
+
+// 4. *+Задано уравнение вида q + w = e, q, w, e >= 0. Некоторые цифры
+// могут быть заменены знаком вопроса, например 2? + ?5 = 69. Требуется
+// восстановить выражение до верного равенства. Предложить хотя бы
+// одно решение или сообщить, что его нет.
 
 public class Java_HW1 {
-    public static void main(String[] args) {
-        System.out.println("Calculator ready enter expression:\n enter 'exit' for leave");
-        Scanner sc = new Scanner(System.in);
-        int a = 0;
-        int b = 0;
-        String op = "";
-        do {
-            String input = sc.next();
-            if (input.equals("exit")) {
-                break;
-            }
-            String[] strings = input.split("\\W");
-            String[] operator = input.split("\\w");
-            try {
-                a = Integer.parseInt(strings[0]);
-                b = Integer.parseInt(strings[1]);
-                op = operator[operator.length - 1];
-                System.out.println("Result = " + operation(a, b, op));
-            } catch (Exception e) {
-                System.out.println("Error input try again");
-            }
-        } while (true);
-    }
 
-    private static int operation(int a, int b, String op) {
-        switch (op) {
-            case "*":
-                return a * b;
-            case "+":
-                return a + b;
-            case "-":
-                return a - b;
-            case "/":
-                return a / b;
-            default:
-                return 0;
+    public static void main(String[] args) {
+    String equation = "2? + ?9 = 89";
+    String[] parts = equation.split(" ");
+    
+    // Извлекаем части уравнения
+    String q = parts[0]; // "2?"
+    String w = parts[2]; // "?5"
+    String e = parts[4]; // "69"
+    
+    // Ищем решение
+    boolean foundSolution = false;
+    for (int i = 0; i <= 99; i++) {
+    // Заменяем знак вопроса на текущую цифру
+    String qCandidate = q.replace('?', (char)('0' + i / 10)).replace('?', (char)('0' + i % 10));
+        for (int j = 0; j <= 99; j++) {
+        String wCandidate = w.replace('?', (char)('0' + j / 10)).replace('?', (char)('0' + j % 10));
+        // Проверяем, является ли e числом
+            if (isValidNumber(e)) {
+            int qVal = Integer.parseInt(qCandidate);
+            int wVal = Integer.parseInt(wCandidate);
+            int eVal = Integer.parseInt(e);
+            
+                if (qVal + wVal == eVal) {
+                System.out.println("Нашли решение: " + qCandidate + " + " + wCandidate + " = " + eVal);
+                foundSolution = true;
+                }
+            }
         }
     }
-}
+    
+    if (!foundSolution) {
+        System.out.println("Решение не найдено.");
+        }
+    }
+    
+    private static boolean isValidNumber(String value) {
+    // Проверяем, что строка содержит только числа
+    try {
+        Integer.parseInt(value);
+        return true;
+    } catch (NumberFormatException e) {
+        return false;
+    }
+    }
+    }
