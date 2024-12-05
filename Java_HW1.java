@@ -96,7 +96,7 @@
 public class Java_HW1 {
 
     public static void main(String[] args) {
-    String equation = "2? + ?9 = 89";
+    String equation = "6? + ?9 = 99";
     String[] parts = equation.split(" ");
     
     // Извлекаем части уравнения
@@ -118,10 +118,16 @@ public class Java_HW1 {
             int eVal = Integer.parseInt(e);
             
                 if (qVal + wVal == eVal) {
-                System.out.println("Нашли решение: " + qCandidate + " + " + wCandidate + " = " + eVal);
+                System.out.println("Нашли решение: " + qVal + " + " + wVal + " = " + eVal);
                 foundSolution = true;
                 }
             }
+            if(foundSolution) {
+                break;
+            }
+        }
+        if(foundSolution) {
+            break;
         }
     }
     
@@ -138,5 +144,5 @@ public class Java_HW1 {
     } catch (NumberFormatException e) {
         return false;
     }
-    }
+   }
     }
